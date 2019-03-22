@@ -1,5 +1,6 @@
 {
 	"color": [
+<<<<<<< HEAD
 		"blue"
 		"grey"
 		"black"
@@ -18,3 +19,41 @@
 	]
 }, 
 
+=======
+		"Black",
+		"Blue",
+		"White",
+		"Grey",
+		"Red",
+		"Green",
+		"Yellow",
+		"Orange",
+		"Pink",
+		"Multicolour",
+		"Beige",
+		"Purple",
+		"Turquoise",
+		"Brown",
+		"Gold",
+		"Silver"
+	],
+	
+	
+	"gender" : [
+		"men",
+		"women",
+		"kids"
+	],
+	"length":[
+		"3_4",
+		"7_8",
+		"full_length",
+		"knee_length"
+	]
+
+
+
+
+
+}
+>>>>>>> b8607dc10ab8f1ec91ffa85c5c46493e27baadcb
