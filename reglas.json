@@ -1,20 +1,20 @@
 {
 	"color": [
-		"Black",
-		"Blue",
-		"White",
-		"Grey",
-		"Red",
-		"Green",
-		"Yellow",
-		"Orange",
-		"Pink",
-		"Multicolour",
-		"Beige",
-		"Purple",
-		"Turquoise",
-		"Brown",
-		"Gold",
-		"Silver"
+		"blue"
+		"grey"
+		"black"
+		"white"
+		"red"
+		"pink"
+		"green"
+		"multicolour"
+		"orange"
+		"purple"
+		"turquoise"
+		"yellow"
+		"beige"
+		"brown"
+		"gold"
 	]
-}
+}, 
+
