@@ -1,46 +1,45 @@
-//BORRADOR
 #include <iostream>
 #include <fstream>
 #include <stdlib.h>
 #include <windows.h>
 using namespace std;
 
-const int MAX_LONG_WORD=15;
-const int MAX_LONG_FICHERO=30;
-struct ropa {
-    char clothes[MAX_LONG_WORD];
-    char colours[MAX_LONG_WORD];
-    
-};
+const int MAX_LONG_WORD=20;
+const int MAX_LONG_FICHERO=120;
 
-bool asignar (char nombre_fichero[], ropa ropas){
+
+bool asignar (const char nombre_fichero[], char ropas[],char color[]){
     bool abierto = false;
     ifstream f;
     f.open(nombre_fichero);
     if (f.is_open()){
-        f >> ropas.clothes;
+        f >> ropas;
         if (!f.eof()){
             f.ignore(15, '\n');
-            f >> ropas.colours;
+            f >> color;
             if (!f.eof()){
                 abierto = true;
+            }
         }
     }
+    f.close();
     return abierto;
-    f.close;
+
 
 }
 int main (){
-    char primera[MAX_LONG_FICHERO]="https://www.adidas.co.uk/search?q=";
-    
+    char primera[MAX_LONG_FICHERO]="start https://www.adidas.co.uk/search?q=";
+    char color[MAX_LONG_WORD];char ropa[MAX_LONG_WORD];
     char tercera[MAX_LONG_FICHERO]="&searchcolour=";
-    
-    char nombre_fichero[MAX_LONG_FICHERO]="";
-    if (asignar(nombre_fichero,ropa ropas)==true){
-         strcat(primera,ropas.clothes);
-         strcat(segunda, ropas.colours);
-         strcat(primera,segunda);
+
+    char nombre_fichero[MAX_LONG_FICHERO]="ropas.txt";
+    if (asignar(nombre_fichero,ropa,color)){
+         strcat(primera,ropa);
+         strcat(tercera, color);
+         strcat(primera,tercera);
+         cout << primera << endl;
          system(primera);
+         system("pause");
 
     }
     else{
