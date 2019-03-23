@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="resources/styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <title>Programa IA AWS</title>
+  </head>
+  <body>
+    <div class="container">
+      <h3>Por favor carga el archivo que quieres analizar:</h3>
+      <input id="input" class="container-input" type="file" accept=".jpg,.jpeg,.png"></input>
+      <br>
+      <button id="boton" class="container-boton">ANALIZAR</button>
+    </div>
+  </body>
+  <script>
+    // Carga del archivo
+    document.getElementById("boton").addEventListener('click', function(e){
+      e.preventDefault();
+      cargarArchivo();
+    });
+
+    function cargarArchivo() {
+
+    }
+  </script>
+</html>
