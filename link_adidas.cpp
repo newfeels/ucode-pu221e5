@@ -1,6 +1,8 @@
 //BORRADOR
 #include <iostream>
 #include <fstream>
+#include <stdlib.h>
+#include <windows.h>
 using namespace std;
 
 const int MAX_LONG_WORD=15;
@@ -29,9 +31,17 @@ bool asignar (char nombre_fichero[], ropa ropas){
 
 }
 int main (){
+    char primera[MAX_LONG_FICHERO]="https://www.adidas.co.uk/search?q=";
+    
+    char tercera[MAX_LONG_FICHERO]="&searchcolour=";
+    
     char nombre_fichero[MAX_LONG_FICHERO]="";
     if (asignar(nombre_fichero,ropa ropas)==true){
-        cout << "https://www.adidas.co.uk/search?q=" << ropas.clothes << "&searchcolour=" << ropas.colours ; 
+         strcat(primera,ropas.clothes);
+         strcat(segunda, ropas.colours);
+         strcat(primera,segunda);
+         system(primera);
+
     }
     else{
         cerr << "something bad has happenned" << endl;
