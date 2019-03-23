@@ -30,7 +30,7 @@ bool asignar (const char nombre_fichero[], char ropas[],char color[]){
 int main (){
     char primera[MAX_LONG_FICHERO]="start https://www.adidas.co.uk/search?q=";
     char color[MAX_LONG_WORD];char ropa[MAX_LONG_WORD];
-    char tercera[MAX_LONG_FICHERO]="&searchcolour=";
+    char tercera[MAX_LONG_FICHERO]="%20";
 
     char nombre_fichero[MAX_LONG_FICHERO]="ropas.txt";
     if (asignar(nombre_fichero,ropa,color)){
