@@ -23,17 +23,14 @@
     }
     .container {
     }
-
     .container-boton {
       padding:10px;
       margin: 10px;
     }
-
     .container-input {
       padding:10px;
       margin: 10px;
     }
-
     .caja {
       box-shadow: 0px 0px 21px -6px rgba(0,0,0,0.75);
       padding:20px;
@@ -43,12 +40,10 @@
       width: 80%;
       text-align: center;
     }
-
     .escondido {
       display: none;
       padding: 20px;
     }
-
     .escondido-desactivado {
       display: block;
       padding: 20px;
@@ -60,9 +55,11 @@
       <h1>BUSCADOR DE FANTAS-IA</h1>
       <div class="caja">
         <h3>Por favor carga el archivo que quieres analizar:</h3>
-        <input name="archivo" id="input" class="container-input" type="file" accept=".jpg,.jpeg,.png"></input>
-        <br>
-        <button id="boton" class="container-boton">ANALIZAR</button>
+        <form action="fileupload" method="post" enctype="multipart/form-data"c>
+          <input id="input" type="file" name="filetoupload" class="container-input" accept=".jpg,.jpeg,.png"></input>
+          <br>
+          <input id="boton" type="submit" class="container-boton">ANALIZAR</input>
+        </form>
         <br>
         <p id="mensaje-escondido" class="escondido">Niufils huele mal<p>
       </div>
