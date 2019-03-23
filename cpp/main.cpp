@@ -18,7 +18,7 @@ const char COLORS[NUM_COL][MAX_LONG]={//colores de ropa
         "blue","grey","black","white","red","pink","green","multicolour",
         "orange","purple","turquoise","yellow","beige","brown","gold"
 };
-const char INICIO_URL[MAX_LONG]="https://www.adidas.co.uk/search?q=";
+const char INICIO_URL[MAX_LONG]="https://www.adidas.co.uk/";
 const char PRECOLOR[MAX_LONG]="%20";
 const char POSTGEN[3]="-";
 const char GENDER[2][MAX_LONG]={
