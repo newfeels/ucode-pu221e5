@@ -4,6 +4,7 @@
 #include <windows.h>
 using namespace std;
 
+
 const int MAX_LONG_WORD=20;
 const int MAX_LONG_FICHERO=120;
 
@@ -24,9 +25,9 @@ bool asignar (const char nombre_fichero[], char ropas[],char color[]){
     }
     f.close();
     return abierto;
-
-
 }
+
+
 int main (){
     char primera[MAX_LONG_FICHERO]="start https://www.adidas.co.uk/search?q=";
     char color[MAX_LONG_WORD];char ropa[MAX_LONG_WORD];
@@ -40,7 +41,6 @@ int main (){
          cout << primera << endl;
          system(primera);
          system("pause");
-
     }
     else{
         cerr << "something bad has happenned" << endl;
