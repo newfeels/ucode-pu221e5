@@ -2,16 +2,70 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="resources/styles.css">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
-    <title>Programa IA AWS</title>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <title>Buscador de fantasía</title>
+    <style>
+    html {
+      background-image: linear-gradient(45deg, #4277f4, #be41f4);
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: "Open Sans";
+    }
+    body {
+    }
+    h1 {
+      letter-spacing: 2px;
+      font-size:50px;
+      text-align: center;
+      color:white;
+      font-family: "Open Sans Condensed";
+    }
+    .container {
+    }
+
+    .container-boton {
+      padding:10px;
+      margin: 10px;
+    }
+
+    .container-input {
+      padding:10px;
+      margin: 10px;
+    }
+
+    .caja {
+      box-shadow: 0px 0px 21px -6px rgba(0,0,0,0.75);
+      padding:20px;
+      border-radius: 15px;
+      background-color: white;
+      margin: 20px auto;
+      width: 80%;
+      text-align: center;
+    }
+
+    .escondido {
+      display: none;
+      padding: 20px;
+    }
+
+    .escondido-desactivado {
+      display: block;
+      padding: 20px;
+    }
+    </style>
   </head>
   <body>
     <div class="container">
-      <h3>Por favor carga el archivo que quieres analizar:</h3>
-      <input id="input" class="container-input" type="file" accept=".jpg,.jpeg,.png"></input>
-      <br>
-      <button id="boton" class="container-boton">ANALIZAR</button>
+      <h1>BUSCADOR DE FANTAS-IA</h1>
+      <div class="caja">
+        <h3>Por favor carga el archivo que quieres analizar:</h3>
+        <input name="archivo" id="input" class="container-input" type="file" accept=".jpg,.jpeg,.png"></input>
+        <br>
+        <button id="boton" class="container-boton">ANALIZAR</button>
+        <br>
+        <p id="mensaje-escondido" class="escondido">Niufils huele mal<p>
+      </div>
     </div>
   </body>
   <script>
@@ -22,7 +76,10 @@
     });
 
     function cargarArchivo() {
-
+      document.getElementById("mensaje-escondido")
+        .classList.replace("escondido", "escondido-desactivado");
+      var test = document.getElementById("input").files[0];
+      console.log(test);
     }
   </script>
 </html>

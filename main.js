@@ -1,51 +1,24 @@
-// ELECTRON
-// Módulos para controlar electron
-const {app, BrowserWindow} = require('electron')
+var http = require('http');
+var fs = require('fs');
 
-// Referencia global de la ventana electron
-let mainWindow
+http.createServer(function (req, res) {
+  fs.readFile('index.html', function(err, data) {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write(data);
+    res.end();
+  });
+}).listen(8080);
 
-// Crear la vantana de electron
-function createWindow () {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-    webPreferences: {
-      nodeIntegration: true
-    }
-  })
-  // Carga del HTML
-  mainWindow.loadFile('index.html')
-  // Cerrar la ventana
-  mainWindow.on('closed', function () {
-    mainWindow = null
-  })
-}
 
-// Método llamado para cargar la app cuando se haya cargado electron
-app.on('ready', createWindow)
+// SUBIR ARCHIVO A S3c
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
 
-// Cerrar todos los procesos cuando se cierra la ventana
-app.on('window-all-closed', function () {
-  // Excepto en mac
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
-})
-
-app.on('activate', function () {
-  if (mainWindow === null) {
-    createWindow()
-  }
-})
 
 // ANALIZAR IMAGEN
-const AWS = require('aws-sdk');
-
 var rekognition = new AWS.Rekognition();
 
-
-var params = {
+var image = {
  Image: {
   S3Object: {
    Bucket: "ucode19",
@@ -56,11 +29,32 @@ var params = {
  MinConfidence: 70
 };
 
+var image2  = {
+ Image: {
+  S3Object: {
+   Bucket: "ucode19",
+   Name: "teams/group-20/celebrities.jpg"
+  }
+ },
+ MaxLabels: 50,
+ MinConfidence: 70
+};
 
-rekognition.detectLabels(params, function(err, data) {
-  if (err) console.log(err, err.stack);
-  else     console.log(data);
-});
+var imageData = getLabels(image);
+
+function getLabels(params) {
+  rekognition.detectLabels(params, function(err, data) {
+    if (err) {
+      console.log(err + err.stack);
+      return err + err.stack;
+    }
+    else {
+      console.log(data);
+      return data;
+    };
+  });
+}
+
 
 /*
 var params = {
