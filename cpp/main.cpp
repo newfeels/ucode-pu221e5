@@ -67,7 +67,7 @@ bool encontrarPrenda(const char nombreFichero[],char prenda[],char gen[],bool& e
 }
 
 int main(){
-    char etiquetasFoto[MAX_LONG]="datos.txt"
+    char etiquetasFoto[MAX_LONG]="datos.txt";
     char prenda [MAX_LONG];
     char gen[MAX_LONG];
     bool estaGen;
@@ -80,7 +80,7 @@ int main(){
             strcat(link,POSTGEN);
         }
         strcat(link,prenda);
-        ofstream f(url.txt);
+        ofstream f("url.txt");
         if(f.is_open()){
             f<< link<<endl;
         }
