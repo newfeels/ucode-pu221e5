@@ -8,10 +8,9 @@ const int MAX_LONG_FICHERO=30;
 struct ropa {
     char clothes[MAX_LONG_WORD];
     char colours[MAX_LONG_WORD];
-    
 };
 
-bool asignar (char nombre_fichero[], ropa ropas){
+bool asignar (char nombre_fichero[], ropa &ropas){
     bool abierto = false;
     ifstream f;
     f.open(nombre_fichero);
@@ -22,16 +21,19 @@ bool asignar (char nombre_fichero[], ropa ropas){
             f >> ropas.colours;
             if (!f.eof()){
                 abierto = true;
+            }
         }
     }
+    f.close();
     return abierto;
-    f.close;
-
 }
+
+
 int main (){
-    char nombre_fichero[MAX_LONG_FICHERO]="";
-    if (asignar(nombre_fichero,ropa ropas)==true){
-        cout << "https://www.adidas.co.uk/search?q=" << ropas.clothes << "&searchcolour=" << ropas.colours ; 
+    ropa ropas;
+    char nombre_fichero[MAX_LONG_FICHERO] = "ropas.txt";
+    if (asignar(nombre_fichero,ropas)==true){
+        cout << "https://www.adidas.co.uk/search?q=" << ropas.clothes << "&searchcolour=" << ropas.colours << endl;
     }
     else{
         cerr << "something bad has happenned" << endl;
