@@ -16,5 +16,20 @@
 		"Brown",
 		"Gold",
 		"Silver"
+	],
+	
+	"style": [
+		"sweatpants",
+		"tracksuit_bottoms",
+		"casual_pants",
+		"chinos",
+		"rain_pants",
+		"capris",
+		"snow_pants"
 	]
+
+
+
+
+
 }
