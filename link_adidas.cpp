@@ -9,7 +9,7 @@
 using namespace std;
 
 const int MAX_LONG= 200;
-const int NUM_CLOTHES=13;
+const int NUM_CLOTHES=50;
 const int NUM_COL=15;
 const char PRENDAS[NUM_CLOTHES][MAX_LONG]={ //prendas que se pueden procesar
     "pants","trainers","shoes","trousers","t-shirt", "shorts","short", "jacket","backpack",
