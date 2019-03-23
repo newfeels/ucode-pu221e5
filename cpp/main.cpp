@@ -19,7 +19,7 @@ const char COLORS[NUM_COL][MAX_LONG]={//colores de ropa
         "blue","grey","black","white","red","pink","green","multicolour",
         "orange","purple","turquoise","yellow","beige","brown","gold"
 };
-const char INICIO_URL[MAX_LONG]="start https://www.adidas.co.uk/search?q=";
+const char INICIO_URL[MAX_LONG]="https://www.adidas.co.uk/search?q=";
 const char PRECOLOR[MAX_LONG]="%20";
 const char POSTGEN[3]="-";
 const char GENDER[2][MAX_LONG]={
@@ -67,10 +67,8 @@ bool encontrarPrenda(const char nombreFichero[],char prenda[],char gen[],bool& e
     return prendaEncontrada;
 }
 
-int main(int numArg, char* args[]){
-    char etiquetasFoto[MAX_LONG];
-    strcpy(etiquetasFoto,args[1]);
-    cout<<etiquetasFoto<<endl;
+int main(){
+    char etiquetasFoto[MAX_LONG]="datos.txt"
     char prenda [MAX_LONG];
     char gen[MAX_LONG];
     bool estaGen;
@@ -83,8 +81,13 @@ int main(int numArg, char* args[]){
             strcat(link,POSTGEN);
         }
         strcat(link,prenda);
-        system(link);
-        system("pause");
+        ofstream f(url.txt);
+        if(f.is_open()){
+            f<< link<<endl;
+        }
+        else{
+            cerr<< "No se pudo crear el archivo "<< endl;
+        }
         
     }
     else{
