@@ -1,6 +1,80 @@
+// node
 var http = require('http');
 var formidable = require('formidable');
 var fs = require('fs');
+// aws
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3();
+var rekognition = new AWS.Rekognition();
+
+const image = {
+ Image: {
+  S3Object: {
+   Bucket: "ucode19",
+   Name: "teams/group-20/celebrities.jpg"
+  }
+ },
+ MaxLabels: 20,
+ MinConfidence: 70
+};
+
+http.createServer(function (req, res) {
+  if (req.url == '/fileupload') {
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      loadFileToS3(files);
+      res.write('File uploaded');
+      res.end();
+    });
+  } else {
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+    res.write('<input type="file" name="filetoupload"><br>');
+    res.write('<input type="submit">');
+    res.write('</form>');
+    return res.end();
+  }
+}).listen(8080);
+
+
+// objEtiquetas tiene el objeto con todas las eiquetas
+var objEtiquetas;
+
+
+function escribirArchivo() {
+  console.log(objEtiquetas);
+
+  let testStr = "";
+  for (let i=0; i<objEtiquetas.Labels.length;  i++) {
+    testStr += objEtiquetas.Labels[i].Name + "\n";
+  }
+  fs.writeFile('test.txt', testStr);
+}
+
+
+function loadFileToS3(files) {
+  // Lee las etiquetas de la imagen
+  rekognition.detectLabels(image, function(err, data) {
+    if (err) {
+      console.log(err + err.stack);
+    }
+    else {
+      //console.log(data);
+      objEtiquetas = data;
+      escribirArchivo();
+    };
+  });
+
+  //var imageData = labels(image);
+  //console.log(imageData);
+
+  // Escribe el archivo
+
+
+  // Carga el archivo de c++
+  //procesarLabels(imageData);
+}
+
 /*
 http.createServer(function (req, res) {
   if (req.url == '/fileupload') {
@@ -20,7 +94,8 @@ http.createServer(function (req, res) {
 }).listen(8080);
 */
 
-/*fs.readFile('./index.html', function (err, html) {
+/*
+fs.readFile('./index.html', function (err, html) {
     if (err) {
         throw err;
     }
@@ -29,99 +104,17 @@ http.createServer(function (req, res) {
         response.write(html);
         response.end();
     }).listen(8000);
-});*/
+});
+*/
 
-http.createServer(function (req, res) {
-  if (req.url == '/fileupload') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      var oldpath = files.filetoupload.path;
-      var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
-      fs.rename(oldpath, newpath, function (err) {
-        if (err) throw err;
-        res.write('File uploaded and moved!');
-        res.end();
-      });
- });
-  } else {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="filetoupload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
-  }
-}).listen(8080);
+function labels(info) {
 
-function uploadFileToS3(path){
-  console.log(path);
 }
 
-
-// PROCESAR C++
-var exec = require('child_process').exec;
-exec('pwd', function callback(error, stdout, stderr){
-    console.log(error, stdout, stderr);
-});
-
-
-// SUBIR ARCHIVO A S3c
-const AWS = require('aws-sdk');
-const s3 = new AWS.S3();
-
-
-// ANALIZAR IMAGEN
-var rekognition = new AWS.Rekognition();
-
-var image = {
- Image: {
-  S3Object: {
-   Bucket: "ucode19",
-   Name: "teams/group-20/celebrities.jpg"
-  }
- },
- MaxLabels: 50,
- MinConfidence: 70
-};
-
-var image2  = {
- Image: {
-  S3Object: {
-   Bucket: "ucode19",
-   Name: "teams/group-20/celebrities.jpg"
-  }
- },
- MaxLabels: 50,
- MinConfidence: 70
-};
-
-var imageData = getLabels(image);
-
-function getLabels(params) {
-  rekognition.detectLabels(params, function(err, data) {
-    if (err) {
-      //console.log(err + err.stack);
-      return err + err.stack;
-    }
-    else {
-      //console.log(data);
-      return data;
-    };
+function procesarLabels(data) {
+  // PROCESAR C++
+  var exec = require('child_process').exec;
+  exec('pwd', function callback(error, stdout, stderr){
+      console.log(error, stdout, stderr);
   });
 }
-
-
-/*
-var params = {
- Image: {
-  S3Object: {
-   Bucket: "ucode19",
-   Name: "teams/group-20/celebrities.jpg"
-  }
- }
-};
-
-rekognition.recognizeCelebrities(params, function(err, data) {
-  if (err) console.log(err, err.stack);
-  else     console.log(data);
-});*/
