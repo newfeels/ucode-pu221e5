@@ -18,14 +18,17 @@
 		"Silver"
 	],
 	
-	"style": [
-		"sweatpants",
-		"tracksuit_bottoms",
-		"casual_pants",
-		"chinos",
-		"rain_pants",
-		"capris",
-		"snow_pants"
+	
+	"gender" : [
+		"men",
+		"women",
+		"kids"
+	],
+	"length":[
+		"3_4",
+		"7_8",
+		"full_length",
+		"knee_length"
 	]
 
 
