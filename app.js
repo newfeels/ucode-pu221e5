@@ -6,6 +6,8 @@ var fs = require('fs');
 const AWS = require('aws-sdk');
 const s3 = new AWS.S3();
 var rekognition = new AWS.Rekognition();
+// ejecutar comandos
+var exec = require('child_process').exec;
 
 const image = {
  Image: {
@@ -18,11 +20,12 @@ const image = {
  MinConfidence: 70
 };
 
+/* APP DE NODE
 http.createServer(function (req, res) {
   if (req.url == '/fileupload') {
     var form = new formidable.IncomingForm();
     form.parse(req, function (err, fields, files) {
-      loadFileToS3(files);
+      loadFileToS3(req, res);
       res.write('File uploaded');
       res.end();
     });
@@ -34,23 +37,40 @@ http.createServer(function (req, res) {
     res.write('</form>');
     return res.end();
   }
+}).listen(8080);*/
+
+http.createServer(function(req, res) {
+    fs.readFile('index.html', function(err, data) {
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      res.write(data);
+      return res.end();
+    });
 }).listen(8080);
 
 
-// objEtiquetas tiene el objeto con todas las eiquetas
+// PROCESO DE LOS DATOS
 var objEtiquetas;
 
-
-function escribirArchivo() {
-  console.log(objEtiquetas);
-
+function procesarDatos(req, res) {
+  // escribir el archivo
   let testStr = "";
   for (let i=0; i<objEtiquetas.Labels.length;  i++) {
     testStr += objEtiquetas.Labels[i].Name + "\n";
   }
-  fs.writeFile('test.txt', testStr);
-}
+  fs.writeFile('cpp/datos.txt', testStr);
+  // ejecutar c++
+  exec('./cpp/test', function callback(error, stdout, stderr){
+      console.log(error, stdout, stderr);
+  });
 
+  fs.readFile('cpp/url.txt', function(err, data) {
+    if (err) {
+      console.log("Error al abrir el archivo con el enlace");
+    } else {
+      res.writeHead(301, { Location: data });
+    }
+  });
+}
 
 function loadFileToS3(files) {
   // Lee las etiquetas de la imagen
@@ -59,20 +79,10 @@ function loadFileToS3(files) {
       console.log(err + err.stack);
     }
     else {
-      //console.log(data);
       objEtiquetas = data;
-      escribirArchivo();
+      procesarDatos();
     };
   });
-
-  //var imageData = labels(image);
-  //console.log(imageData);
-
-  // Escribe el archivo
-
-
-  // Carga el archivo de c++
-  //procesarLabels(imageData);
 }
 
 /*
@@ -93,28 +103,3 @@ http.createServer(function (req, res) {
   }
 }).listen(8080);
 */
-
-/*
-fs.readFile('./index.html', function (err, html) {
-    if (err) {
-        throw err;
-    }
-    http.createServer(function(request, response) {
-        response.writeHeader(200, {"Content-Type": "text/html"});
-        response.write(html);
-        response.end();
-    }).listen(8000);
-});
-*/
-
-function labels(info) {
-
-}
-
-function procesarLabels(data) {
-  // PROCESAR C++
-  var exec = require('child_process').exec;
-  exec('pwd', function callback(error, stdout, stderr){
-      console.log(error, stdout, stderr);
-  });
-}

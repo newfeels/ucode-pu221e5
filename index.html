@@ -56,27 +56,13 @@
       <div class="caja">
         <h3>Por favor carga el archivo que quieres analizar:</h3>
         <form action="fileupload" method="post" enctype="multipart/form-data"c>
-          <input id="input" type="file" name="filetoupload" class="container-input" accept=".jpg,.jpeg,.png"></input>
+          <input type="file" name="filetoupload" class="container-input" accept=".jpg,.jpeg,.png"></input>
           <br>
-          <input id="boton" type="submit" class="container-boton">ANALIZAR</input>
+          <input type="submit" class="container-boton">ANALIZAR</input>
         </form>
         <br>
-        <p id="mensaje-escondido" class="escondido">Niufils huele mal<p>
+        <p class="escondido">Niufils huele mal<p>
       </div>
     </div>
   </body>
-  <script>
-    // Carga del archivo
-    document.getElementById("boton").addEventListener('click', function(e){
-      e.preventDefault();
-      cargarArchivo();
-    });
-
-    function cargarArchivo() {
-      document.getElementById("mensaje-escondido")
-        .classList.replace("escondido", "escondido-desactivado");
-      var test = document.getElementById("input").files[0];
-      console.log(test);
-    }
-  </script>
 </html>
