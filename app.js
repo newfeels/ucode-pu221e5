@@ -25,55 +25,29 @@ const image = {
 // APP DE NODE BASICA
 http.createServer(function (req, res) {
   if (req.url == '/upload') {
-    var form = new formidable.IncomingForm();
-    form.parse(req, function (err, fields, files) {
-      res.write('Cargando...');
-      loadFileToS3();
-      res.end();
-    });
-  } else {
-    res.writeHead(200, {'Content-Type': 'text/html'});
-    res.write('<form action="upload" method="post" enctype="multipart/form-data">');
-    res.write('<input type="file" name="filetoupload"><br>');
-    res.write('<input type="submit">');
-    res.write('</form>');
-    return res.end();
-  }
-}).listen(8080);
-
-// APP DE NODE CON CSS
-/*
-http.createServer(function(req, res) {
-  if (req.url != 'upload') {
-    //fs.readFile('index.html', function(err, data) {
-    //  res.writeHead(200, {'Content-Type': 'text/html'});
-    //  res.write(data);
-    //  return res.end();
-    //});
-    if (req.url == '/upload') {
-      // HTML
-      res.writeHead(200, {'Content-Type':'text/html'});
-      var myReadStream = fs.createReadStream(__dirname + '/upload.html', 'utf8');
-      myReadStream.pipe(res);
+      // Estilos
+      res.writeHead(200, {'Content-Type': 'text/html'});
+      var html = fs.readFileSync('./upload.html');
+      res.write(html);
       // Formulario
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
         loadFileToS3();
         res.end();
       });
-    }
-    else {
-      res.writeHead(200, {'Content-Type':'text/html'});
-      var myReadStream = fs.createReadStream(__dirname + '/index.html', 'utf8');
-      myReadStream.pipe(res);
-    }
+  }
+  else {
+    // Estilos
+    res.writeHead(200, {'Content-Type': 'text/html'});
+    var html = fs.readFileSync('./index.html');
+    res.write(html);
+    return res.end();
   }
 }).listen(8080);
-*/
 
-// PROCESO DE LOS DATOS
+
+// PROCESADO DE LOS DATOS
 var objEtiquetas;
-
 
 function procesarDatos() {
   // escribir el archivo
