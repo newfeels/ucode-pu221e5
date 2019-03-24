@@ -1,7 +1,11 @@
-negros 
-madre mario
-puta
-socks
-penes
-men 
-hentai
+Person
+Human
+People
+Apparel
+Clothing
+Team
+Crowd
+Helmet
+Team Sport
+Sport
+Sports
