@@ -32,7 +32,13 @@ http.createServer(function (req, res) {
       // Formulario
       var form = new formidable.IncomingForm();
       form.parse(req, function (err, fields, files) {
-        loadFileToS3();
+        let fileSize = files.filetoupload.size;
+        // Comprueba que el archivo sea valido
+        if (fileSize == 0) {
+          res.write('<p style="font-size:30px; color:#ce1818; font-weight:800; text-align:center;">Archivo no válido</p>');
+        } else {
+          loadFileToS3(err, fields, files);
+        }
         res.end();
       });
   }
@@ -44,6 +50,21 @@ http.createServer(function (req, res) {
     return res.end();
   }
 }).listen(8080);
+
+
+function loadFileToS3(err, fields, files) {
+  console.log(err, fields, files);
+  // Lee las etiquetas de la imagen
+  rekognition.detectLabels(image, function(err, data) {
+    if (err) {
+      console.log(err + err.stack);
+    }
+    else {
+      objEtiquetas = data;
+      procesarDatos();
+    };
+  });
+}
 
 
 // PROCESADO DE LOS DATOS
@@ -82,18 +103,5 @@ function procesarDatos() {
         }
       });
     }
-  });
-}
-
-function loadFileToS3(files) {
-  // Lee las etiquetas de la imagen
-  rekognition.detectLabels(image, function(err, data) {
-    if (err) {
-      console.log(err + err.stack);
-    }
-    else {
-      objEtiquetas = data;
-      procesarDatos();
-    };
   });
 }

@@ -2,8 +2,8 @@ apparel
 clothing
 sleeve
 t-shirt
-person
 human
+person
 long sleeve
 shirt
 people
