@@ -10,7 +10,7 @@ const int MAX_LONG= 200;                            //numero maximo de caractere
 const int NUM_CLOTHES=25;                           // tamaño de la base de datos de prendas
 const int NUM_COL=15;                               // tamaño de la base de datos de colores
 const char PRENDAS[NUM_CLOTHES][MAX_LONG]={         //prendas que se pueden procesar
-    "pants","trainers","shoes","trousers","t-shirt", "shorts","short", "jacket","backpack",
+    "pants","trainers","shoe","shoes","trousers","t-shirt", "shorts","short", "jacket","backpack",
     "ball","gloves","football","sunglasses","socks","sweatshirts","tights","dresse","dresses",
     "skirt"
 };

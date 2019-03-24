@@ -11,16 +11,6 @@ var exec = require('child_process').exec;
 const command = './procesador';
 var opn = require('opn');
 
-const image = {
- Image: {
-  S3Object: {
-   Bucket: "ucode19",
-   Name: "teams/group-20/shirt.jpg"
-  }
- },
- MaxLabels: 20,
- MinConfidence: 70
-};
 
 // APP DE NODE BASICA
 http.createServer(function (req, res) {
@@ -37,7 +27,7 @@ http.createServer(function (req, res) {
         if (fileSize == 0) {
           res.write('<p style="font-size:30px; color:#ce1818; font-weight:800; text-align:center;">Archivo no válido</p>');
         } else {
-          loadFileToS3(err, fields, files);
+          uploadImage(files.filetoupload.path);
         }
         res.end();
       });
@@ -52,17 +42,45 @@ http.createServer(function (req, res) {
 }).listen(8080);
 
 
-function loadFileToS3(err, fields, files) {
-  console.log(err, fields, files);
-  // Lee las etiquetas de la imagen
-  rekognition.detectLabels(image, function(err, data) {
+function uploadImage(filename) {
+  // Imagen a cargar a S3
+  let name = "teams/group-20" + filename;
+  let fileData = fs.createReadStream(filename);
+  let imageS3 = {
+    Bucket: "ucode19",
+    Body: fileData,
+    Key: name
+  };
+
+  s3.putObject(imageS3, function(err, data) {
     if (err) {
-      console.log(err + err.stack);
+      console.log(err, err.stack);
     }
     else {
-      objEtiquetas = data;
-      procesarDatos();
-    };
+      // Imagen a descargar de S3
+      const imageName = "teams/group-20" + filename;
+      var image = {
+       Image: {
+        S3Object: {
+         Bucket: "ucode19",
+         Name: imageName
+        }
+       },
+       MaxLabels: 50,
+       MinConfidence: 70
+      };
+      // Analizar etiquetas de la imagen
+      rekognition.detectLabels(image, function(err, data) {
+          if (err) {
+            console.log(err + err.stack);
+          }
+          else {
+            objEtiquetas = data;
+            console.log(data);
+            procesarDatos();
+          };
+      });
+    }
   });
 }
 

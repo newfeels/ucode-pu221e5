@@ -1,9 +1,6 @@
 apparel
 clothing
-sleeve
-t-shirt
-human
-person
-long sleeve
-shirt
-people
+footwear
+shoe
+sneaker
+running shoe
