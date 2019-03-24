@@ -1,0 +1,9 @@
+apparel
+clothing
+sleeve
+t-shirt
+person
+human
+long sleeve
+shirt
+people
